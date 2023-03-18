@@ -18,7 +18,7 @@
 <script>
 import * as echarts from 'echarts';
 import * as mqtt from "mqtt/dist/mqtt.min";
-import {reactive, ref, provide, onUnmounted, watch, onMounted} from 'vue';
+import {reactive, ref, onUnmounted, watch, onMounted} from 'vue';
 
 const state = reactive({
   messages: [],
@@ -26,7 +26,7 @@ const state = reactive({
 });
 
 export default {
-  name: 'MQTT',
+  name: "humidityChart",
   setup() {
     connect();
     subscribe();
@@ -64,7 +64,7 @@ export default {
       const lineChartOption = {
         title: [
           {
-            text: 'MQTT Temperature LineChart'
+            text: 'MQTT Humidity LineChart'
           }
         ],
         color: {
@@ -101,7 +101,7 @@ export default {
       const barChartOption = {
         title: [
           {
-            text: 'MQTT Temperature BarChart'
+            text: 'MQTT Humidity BarChart'
           }
         ],
         color: {
@@ -136,20 +136,6 @@ export default {
       myBarChart.setOption(barChartOption);
     }
 
-    function getRandomData() {
-      return Math.floor(Math.random() * 200);
-    }
-
-    // setInterval(() => {
-    //   const newData = {
-    //     xData: [
-    //       ...chartData.value.xData.slice(1),
-    //       new Date().toLocaleTimeString(),
-    //     ],
-    //     yData: [...chartData.value.yData.slice(1), getRandomData()],
-    //   };
-    //   chartData.value = newData;
-    // }, 1000);
 
     function connect() {
       const options = {
@@ -164,10 +150,6 @@ export default {
         console.log('Connected to MQTT broker');
       });
 
-      // client.on('message', (topic, message) => {
-      //   console.log(`Message arrived: ${message.toString()}`);
-      //   state.messages.push(message.toString());
-      // });
 
       client.on('message', (topic, message) => {
         const newData = {
@@ -175,11 +157,11 @@ export default {
             ...chartData.value.xData.slice(1),
             JSON.parse(message)["Time"],
           ],
-          yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Temperature"]],
+          yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Humidity"]],
         };
         chartData.value = newData;
         // console.log(`Message arrived: ${message.toString()}`);
-        console.log(`Temperature arrived: ${JSON.parse(message)["Temperature"]}`);
+        console.log(`Humidity arrived: ${JSON.parse(message)["Humidity"]}`);
         state.messages.push(message.toString());
       });
 
@@ -187,14 +169,14 @@ export default {
     }
 
     function publish(message) {
-      const topic = 'temperature/';
+      const topic = 'humidityTopic';
       const payload = message;
 
       state.client.publish(topic, payload);
     }
 
     function subscribe() {
-      const topic = 'weightTopic';
+      const topic = 'humidityTopic';
 
       state.client.subscribe(topic, (err) => {
         if (err) {
