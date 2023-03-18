@@ -1,67 +1,163 @@
 <template>
-  23423
-  <h1>{{title}}</h1>
+  <div class="line-chart-container">
+    <div class="line-chart" ref="lineChart"></div>
+  </div>
+<!--  <div>-->
+<!--    <h1>Mqtt Message:</h1>-->
+<!--    <p>{{ state.messages }}</p>-->
+<!--  </div>-->
 
-  <h1>{{client}}</h1>
-
-  <h1>{{listData}}</h1>
 </template>
 
 <script>
+import * as echarts from 'echarts';
+import * as mqtt from "mqtt/dist/mqtt.min";
+import {reactive, ref, provide, onUnmounted, watch, onMounted} from 'vue';
 
-import Stomp from 'stompjs';
-import { MQTT_SERVICE, MQTT_USERNAME, MQTT_PASSWORD,MQTT_topic } from '../utils/mqtt';
+const state = reactive({
+  messages: [],
+  client: null,
+});
 
 export default {
-  name: "StompChat",
-  data() {
+  name: 'App',
+  setup() {
+    connect();
+    subscribe();
+    const lineChart = ref(null);
+    let myChart = null;
+    const chartData = ref({
+      xData: ['1', '2', '3', '4', '5', '6', '7'],
+      yData: [100, 100, 100, 100, 100, 100, 100],
+    });
+
+    onMounted(() => {
+      myChart = echarts.init(lineChart.value);
+      updateChart();
+    });
+
+    onUnmounted(() => {
+      if (myChart != null) {
+        myChart.dispose();
+        myChart = null;
+      }
+    });
+
+    watch(chartData, () => {
+      updateChart();
+    });
+
+    function updateChart() {
+      const option = {
+        tooltip: {
+          trigger: 'axis',
+        },
+        xAxis: {
+          type: 'category',
+          data: chartData.value.xData,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: chartData.value.yData,
+            type: 'line',
+          },
+        ],
+      };
+
+      myChart.setOption(option);
+    }
+
+    function getRandomData() {
+      return Math.floor(Math.random() * 200);
+    }
+
+    // setInterval(() => {
+    //   const newData = {
+    //     xData: [
+    //       ...chartData.value.xData.slice(1),
+    //       new Date().toLocaleTimeString(),
+    //     ],
+    //     yData: [...chartData.value.yData.slice(1), getRandomData()],
+    //   };
+    //   chartData.value = newData;
+    // }, 1000);
+
+    function connect() {
+      const options = {
+        username: 'guest',
+        password: 'guest',
+        port: 15675, // RabbitMQ Web MQTT port
+      };
+
+      let client = mqtt.connect('ws://140.125.207.230/ws', options);
+
+      client.on('connect', () => {
+        console.log('Connected to MQTT broker');
+      });
+
+      // client.on('message', (topic, message) => {
+      //   console.log(`Message arrived: ${message.toString()}`);
+      //   state.messages.push(message.toString());
+      // });
+
+      client.on('message', (topic, message) => {
+        const newData = {
+          xData: [
+            ...chartData.value.xData.slice(1),
+            new Date().toLocaleTimeString(),
+          ],
+          yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Temperature"]],
+        };
+        chartData.value = newData;
+        // console.log(`Message arrived: ${message.toString()}`);
+        console.log(`Temperature arrived: ${JSON.parse(message)["Temperature"]}`);
+        state.messages.push(message.toString());
+      });
+
+      state.client = client;
+    }
+
+    function publish(message) {
+      const topic = 'weightTopic';
+      const payload = message;
+
+      state.client.publish(topic, payload);
+    }
+
+    function subscribe() {
+      const topic = 'weightTopic';
+
+      state.client.subscribe(topic, (err) => {
+        if (err) {
+          console.log(`Failed to subscribe to ${topic}: ${err}`);
+        } else {
+          console.log(`Subscribed to ${topic}`);
+        }
+      });
+    }
     return {
-      title:'測試信息',
-      client: Stomp.client(MQTT_SERVICE),
-      listData: [
-      ]
-    }
+      lineChart,
+      state,
+      publish,
+    };
   },
-  computed: {
-    optionSetting() {
-      return {
-        step: 1, // 速度，值越大，速度越快
-        hoverStop: true // 鼠標懸停效果，false爲關閉該效果
-        // 　　　　　　　　　　singleHeight: 120,//單行停頓
-        // 　　　　　　　　　　waitTime: 2500,//單行停頓的時間
-      }
-    }
-  },
-  created() {
-    this.connect()// stomp連接mq
-  },
-  methods: {
-    onConnected: function(frame) {
-      // 訂閱頻道
-      const topic = MQTT_topic
-      this.client.subscribe(topic, this.responseCallback, this.onFailed)
-    },
-    onFailed: function(frame) {
-      console.log('MQ Failed:' + frame)
-    },
-    responseCallback: function(frame) {
-      // 接收消息處理
-      console.log('MQ msg=>', frame.body)
-      this.title=frame.body;
-    },
-    connect() {
-      // 初始化mqtt客戶端，並連接mqtt服務
-      const headers = {
-        login: MQTT_USERNAME,
-        password: MQTT_PASSWORD
-      }
-      this.client.connect(MQTT_USERNAME,MQTT_PASSWORD, this.onConnected, this.onFailed)
-      // this.client.connect(MQTT_USERNAME,MQTT_PASSWORD, this.onConnected, this.onFailed)//   有的是不需要MQTT_host的，不需要的話，就不用傳這個參數
-    }
-  }
-}
+};
 </script>
 
-<style scoped>
+<style>
+.line-chart-container {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.line-chart {
+  width: 80%;
+  height: 80%;
+}
 </style>

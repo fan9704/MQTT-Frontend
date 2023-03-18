@@ -5,7 +5,7 @@ import StompChat from "../components/stompChat.vue";
 
 
 const routes = [{
-    path: "/",
+    path: "/stompChat",
     name: "index",
     component: HelloWorld,
 },
@@ -15,7 +15,7 @@ const routes = [{
         component: Chat,
     },
     {
-        path: "/stompChat",
+        path: "/",
         name: "stompChat",
         component:StompChat,
     }
