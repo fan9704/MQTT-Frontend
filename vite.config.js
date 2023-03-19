@@ -4,6 +4,9 @@ import vuetify from '@vuetify/vite-plugin'
 // https://vitejs.dev/config/
 const path = require('path')
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production'
+      ? '/PetMonitoringSystem-Frontend/'
+      : '/',
   build:{
     chunkSizeWarningLimit:1500,
   },
