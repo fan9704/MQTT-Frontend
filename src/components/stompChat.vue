@@ -1,12 +1,33 @@
 <template>
   <v-container>
+    <v-row class="mb-6">
+      <v-col cols="12">
+        <h2>寵物視覺化資訊</h2>
+        <p>You selected: {{ selectedPetType }}</p>
+      </v-col>
+    </v-row>
+    <v-row class="mb-6">
+      <v-col cols="6" xs="12" sm="12" md="6" lg="6" xl="6">
+        <v-select
+            v-model="selectPetType"
+            label="選擇寵物種類"
+            :items="petDictKeys"
+        ></v-select>
+      </v-col>
+      <v-col cols="6" xs="12" sm="12" md="6" lg="6" xl="6">
+        <v-select
+            label="選擇寵物"
+            :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+        ></v-select>
+      </v-col>
+    </v-row>
     <v-row class="mb-6" >
-      <v-col cols="6" sm="12" md="6">
+      <v-col cols="6" xs="12" sm="12" md="6" lg="6" xl="4">
         <div class="line-chart-container">
           <div class="line-chart" ref="barChart"></div>
         </div>
       </v-col>
-      <v-col cols="6" sm="12" md="6">
+      <v-col cols="6" xs="12" sm="12" md="6" lg="6" xl="4">
         <div class="line-chart-container">
           <div class="line-chart" ref="lineChart"></div>
         </div>
@@ -213,9 +234,31 @@ export default {
   },
   data() {
     return {
-      theme: 'light'
+      theme: 'light',
+      selectPetType:null,
+      petDict:{
+        "貓":'cat',
+        "狗":'dog',
+        "老鼠":'mouse',
+      },
+      petDictKeys:["貓","狗","老鼠"],
     }
   },
+  computed: {
+    selectedPetType() {
+      if (this.selectPetType) {
+        return this.petDict[this.selectPetType];
+      } else {
+        return null;
+      }
+    }
+  },
+  methods(){
+
+  },
+  beforeCreate() {
+    //Get All Animal
+  }
 };
 </script>
 
