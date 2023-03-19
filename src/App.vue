@@ -7,7 +7,7 @@
       >
         <template v-slot:image>
           <v-img
-              gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+              gradient="to top right, rgba(253,147,64,.8), rgba(254,172,110,.8)"
           ></v-img>
         </template>
 
@@ -35,9 +35,12 @@
           location="left"
           temporary
       >
-        <v-list
-            :items="items"
-        ></v-list>
+
+        <v-list>
+          <v-list-item to="/" prepend-icon="mdi-home" title="Home Page"></v-list-item>
+          <v-list-item to="/login" prepend-icon="mdi-account" title="Login/Register"></v-list-item>
+          <v-list-item to="/graph" prepend-icon="mdi-graph" title="Graph"></v-list-item>
+        </v-list>
       </v-navigation-drawer>
 
       <v-main>
