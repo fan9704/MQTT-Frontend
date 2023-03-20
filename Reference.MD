@@ -29,3 +29,7 @@ In Android Studio
 gradle signingReport
 #generate SHA1/MD5 key
 ```
+
+### PWA Icon Generation Tool
+
+[Web Icon Tool](https://lp-pwa.gitee.io/pwa-genicon/)
