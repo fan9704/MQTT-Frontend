@@ -179,7 +179,8 @@ export default {
         port: 15675, // RabbitMQ Web MQTT port
       };
 
-      let client = mqtt.connect('ws://140.125.207.230/ws', options);
+      const wss_protocol = (window.location.protocol == 'https:') ? 'wss://': 'ws://';
+      let client = mqtt.connect(wss_protocol+'140.125.207.230/ws', options);
 
       client.on('connect', () => {
         console.log('Connected to MQTT broker');
