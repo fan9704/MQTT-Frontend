@@ -21,3 +21,11 @@
 ### UI Design Figma
 
 [UI Link](https://www.figma.com/file/802P9ZBM9JB63Z75YspJAA/Pet-App---UIKIT-by-Hatypo-Studio-(Community)?node-id=13-5238&t=kebi0Lkm1k3xvrQD-0)
+
+### Firebase App SHA1 Generate
+
+In Android Studio
+```shell
+gradle signingReport
+#generate SHA1/MD5 key
+```
