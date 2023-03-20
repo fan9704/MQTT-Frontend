@@ -10,8 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2 #Copy Code to Runner
+      - name: Set up Node.js #Setup NodeJs Version
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.1'
 
       - name: install dependencies
         run: yarn install

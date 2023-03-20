@@ -12,3 +12,12 @@
 ## EChart Support
 
 1. [EChart Document](https://echarts.apache.org/en/feature.html)
+
+## Vue Deploy to GitHub Page through GitHub Actions 
+
+1. [Github Action 初次嘗試](https://hackmd.io/@c36ICNyhQE6-iTXKxoIocg/H1TE8hXOP)
+2. [Vue - 使用 GitHub Actions 部署到 GitHub Pages](https://tzuhui.io/2020/12/11/Vue/Vue-deploy-github-actions/)
+
+### UI Design Figma
+
+[UI Link](https://www.figma.com/file/802P9ZBM9JB63Z75YspJAA/Pet-App---UIKIT-by-Hatypo-Studio-(Community)?node-id=13-5238&t=kebi0Lkm1k3xvrQD-0)
