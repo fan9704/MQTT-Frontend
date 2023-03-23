@@ -3,12 +3,19 @@ import StompChat from "../components/stompChat.vue";
 import IndexView from "../views/Index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import LoginView from "../views/Login.vue";
+import PetListView from "../views/PetList.vue";
 
 const routes = [
     {
         path: "/",
         name: "IndexView",
         component: IndexView,
+    },
+    {
+        path: "/pet/:petType",
+        name: "PetListView",
+        component: PetListView,
+        props: true,
     },
     {
         path: "/login",
@@ -23,7 +30,7 @@ const routes = [
     {
         path: "/graph",
         name: "stompChat",
-        component:StompChat,
+        component: StompChat,
     }
 ];
 
