@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@mdi/font": "^7.1.96",
+    "@types/vue": "^2.0.0",
+    "@types/vue-router": "^2.0.0",
     "aos": "^2.3.4",
     "axios": "^1.0.0",
     "echarts": "^5.4.1",
+    "firebase": "^9.17.2",
     "mqtt": "^4.3.7",
     "roboto-fontface": "*",
     "stompjs": "^2.3.3",
@@ -25,15 +28,15 @@
     "vue-router": "^4.0.14",
     "vue-sweetalert2": "^5.0.2",
     "vuetify": "3.1.10",
-    "webfontloader": "^1.6.28",
-    "firebase": "^9.17.2"
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
     "@vuetify/vite-plugin": "^1.0.0-alpha.0",
-    "vite-plugin-vuetify": "^1.0.2",
-    "vite-plugin-pwa": "^0.12.2",
     "vite": "^2.9.13",
-    "vuetify-loader": "^1.9.2"
+    "vite-plugin-pwa": "^0.12.2",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vuetify-loader": "^1.9.2",
+    "https-localhost": "^4.7.0"
   }
 }

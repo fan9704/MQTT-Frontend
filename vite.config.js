@@ -2,12 +2,12 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vuetify from '@vuetify/vite-plugin'
 import { VitePWA } from 'vite-plugin-pwa'
-// https://vitejs.dev/config/
-const path = require('path')
+import path from 'path';
+
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production'
-      ? '/PetMonitoringSystem-Frontend/'
-      : '/',
+  // base: process.env.NODE_ENV === 'production'
+  //     ? '/PetMonitoringSystem-Frontend/'
+  //     : '/',
   build:{
     chunkSizeWarningLimit:1500,
   },
@@ -61,9 +61,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // 選項寫法
       '/api': {
-        target: 'http://127.0.0.1:8080',
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true,
         rewrite: (path) => path.replace('', '')
       },
