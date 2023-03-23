@@ -58,9 +58,7 @@
         <h2 class="headline font-weight-bold mb-5">
          相關連結
         </h2>
-
         <v-row justify="center">
-
           <a
               v-for="(link, i) in importantLinks"
               :key="i"
@@ -72,18 +70,18 @@
           </a>
         </v-row>
       </v-col>
-
-
     </v-row>
   </v-container>
+  <PetTypeList></PetTypeList>>
 </template>
 
 <script>
 import logo from '../assets/applogo.png'
+import PetTypeList from "../components/homeComponents/PetTypeList.vue";
 
 export default {
   name: 'IndexView',
-
+  components: {PetTypeList},
   data: () => ({
     ecosystem: [
       {
