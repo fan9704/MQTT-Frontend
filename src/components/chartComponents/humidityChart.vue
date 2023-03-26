@@ -74,9 +74,9 @@ export default {
           x2: 0,
           y2: 1,
           colorStops: [{
-            offset: 0, color: '#89c5f9' // color at 0%
+            offset: 0, color: '#e79556' // color at 0%
           }, {
-            offset: 1, color: '#c9f2dc' // color at 100%
+            offset: 1, color: '#e79556' // color at 100%
           }],
         },
         tooltip: {
@@ -111,9 +111,9 @@ export default {
           x2: 0,
           y2: 1,
           colorStops: [{
-            offset: 0, color: '#89c5f9' // color at 0%
+            offset: 0, color: '#e79556' // color at 0%
           }, {
-            offset: 1, color: '#c9f2dc' // color at 100%
+            offset: 1, color: '#f6d2b8' // color at 100%
           }],
         },
         tooltip: {
@@ -136,7 +136,16 @@ export default {
       myBarChart.setOption(barChartOption);
     }
 
-
+    function currentDateTime() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day}-${hours}:${minutes}:${seconds}`;
+    }
     function connect() {
       const options = {
         username: 'guest',
@@ -155,7 +164,7 @@ export default {
         const newData = {
           xData: [
             ...chartData.value.xData.slice(1),
-            JSON.parse(message)["Time"],
+            currentDateTime(),
           ],
           yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Humidity"]],
         };
@@ -169,14 +178,14 @@ export default {
     }
 
     function publish(message) {
-      const topic = 'humidityTopic';
+      const topic = 'temperature/';
       const payload = message;
 
       state.client.publish(topic, payload);
     }
 
     function subscribe() {
-      const topic = 'humidityTopic';
+      const topic = 'temperature/#';
 
       state.client.subscribe(topic, (err) => {
         if (err) {
@@ -200,7 +209,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .line-chart-container {
   width: 100%;
