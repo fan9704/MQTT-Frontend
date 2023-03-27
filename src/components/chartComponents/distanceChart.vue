@@ -1,18 +1,5 @@
 <template>
-  <v-container>
-    <v-row class="mb-6" >
-      <v-col cols="6" sm="12" md="6">
-        <div class="line-chart-container">
-          <div class="line-chart" ref="barChart"></div>
-        </div>
-      </v-col>
-      <v-col cols="6" sm="12" md="6">
-        <div class="line-chart-container">
-          <div class="line-chart" ref="lineChart"></div>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="line-chart" ref="distanceChart"></div>
 </template>
 
 <script>
@@ -26,22 +13,19 @@ const state = reactive({
 });
 
 export default {
-  name: "humidityChart",
+  name: "distanceChart",
   setup() {
     connect();
     subscribe();
-    const lineChart = ref(null);
-    const barChart = ref(null);
+    const distanceChart = ref(null);
     let myLineChart = null;
-    let myBarChart =null;
     const chartData = ref({
       xData: ['1', '2', '3', '4', '5', '6', '7'],
       yData: [100, 100, 100, 100, 100, 100, 100],
     });
 
     onMounted(() => {
-      myLineChart = echarts.init(lineChart.value);
-      myBarChart =echarts.init(barChart.value);
+      myLineChart = echarts.init(distanceChart.value);
       updateChart();
     });
 
@@ -49,10 +33,6 @@ export default {
       if (myLineChart != null) {
         myLineChart.dispose();
         myLineChart = null;
-      }
-      if (myBarChart != null) {
-        myBarChart.dispose();
-        myBarChart = null;
       }
     });
 
@@ -64,7 +44,7 @@ export default {
       const lineChartOption = {
         title: [
           {
-            text: 'MQTT Humidity LineChart'
+            text: 'MQTT Distance LineChart'
           }
         ],
         color: {
@@ -74,9 +54,9 @@ export default {
           x2: 0,
           y2: 1,
           colorStops: [{
-            offset: 0, color: '#e79556' // color at 0%
+            offset: 0, color: '#89c5f9' // color at 0%
           }, {
-            offset: 1, color: '#e79556' // color at 100%
+            offset: 1, color: '#c9f2dc' // color at 100%
           }],
         },
         tooltip: {
@@ -96,44 +76,7 @@ export default {
           },
         ],
       };
-
       myLineChart.setOption(lineChartOption);
-      const barChartOption = {
-        title: [
-          {
-            text: 'MQTT Humidity BarChart'
-          }
-        ],
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [{
-            offset: 0, color: '#e79556' // color at 0%
-          }, {
-            offset: 1, color: '#f6d2b8' // color at 100%
-          }],
-        },
-        tooltip: {
-          trigger: 'axis',
-        },
-        xAxis: {
-          type: 'category',
-          data: chartData.value.xData,
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [
-          {
-            data: chartData.value.yData,
-            type: 'bar',
-          },
-        ],
-      };
-      myBarChart.setOption(barChartOption);
     }
 
     function currentDateTime() {
@@ -166,11 +109,10 @@ export default {
             ...chartData.value.xData.slice(1),
             currentDateTime(),
           ],
-          yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Humidity"]],
+          yData: [...chartData.value.yData.slice(1), JSON.parse(message)["Distance"]],
         };
         chartData.value = newData;
-        // console.log(`Message arrived: ${message.toString()}`);
-        console.log(`Humidity arrived: ${JSON.parse(message)["Humidity"]}`);
+        console.log(`Distance arrived: ${JSON.parse(message)["Distance"]}`);
         state.messages.push(message.toString());
       });
 
@@ -178,14 +120,14 @@ export default {
     }
 
     function publish(message) {
-      const topic = 'temperature/';
+      const topic = 'distance/';
       const payload = message;
 
       state.client.publish(topic, payload);
     }
 
     function subscribe() {
-      const topic = 'temperature/#';
+      const topic = 'distance/#';
 
       state.client.subscribe(topic, (err) => {
         if (err) {
@@ -196,8 +138,7 @@ export default {
       });
     }
     return {
-      lineChart,
-      barChart,
+      distanceChart,
       state,
       publish,
     };
@@ -209,6 +150,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .line-chart-container {
   width: 100%;
