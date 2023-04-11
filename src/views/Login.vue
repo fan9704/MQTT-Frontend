@@ -4,7 +4,7 @@
     <h4 id="subtitle">Water is life.Water is a basic human need.In various lines of life,humans need water</h4>
     <v-sheet class="pa-12" rounded>
       <transition name="slide">
-      <v-card class="mx-auto px-6 py-8" max-width="344" v-show="!isShow">
+        <v-card class="mx-auto px-6 py-8" max-width="344" v-show="!isShow">
         <v-form
             v-model="form"
             @submit.prevent="onSubmit"
@@ -41,8 +41,31 @@
               size="large"
               type="submit"
               variant="elevated"
+              v-on:click="login"
           >
             登入
+          </v-btn>
+          <v-btn
+              block
+              class="oauth-btn"
+              color="blue"
+              size="large"
+              variant="elevated"
+              prepend-icon="mdi-google"
+              @click="googleLogin"
+          >
+            Google登入
+          </v-btn>
+          <v-btn
+              block
+              class="oauth-btn"
+              color="black"
+              size="large"
+              variant="elevated"
+              prepend-icon="mdi-github"
+              @click="gitHubLogin"
+          >
+            GitHub登入
           </v-btn>
         </v-form>
       </v-card>
@@ -50,7 +73,7 @@
       <transition name="slide" >
         <v-card class="mx-auto px-6 py-8" max-width="344" v-show="isShow">
           <v-form
-              v-model="form"
+              v-model="formLogin"
               @submit.prevent="onSubmit"
           >
             <v-text-field
@@ -82,7 +105,6 @@
                登入
             </span>
             <br>
-
             <v-btn
                 class="account-btn"
                 :disabled="!form"
@@ -92,10 +114,10 @@
                 size="large"
                 type="submit"
                 variant="elevated"
+                v-on:click="register"
             >
               註冊
             </v-btn>
-            <br>
             <v-btn
                 block
                 class="oauth-btn"
@@ -133,6 +155,7 @@ export default {
   name: "LoginView",
   data: () => ({
     form: false,
+    formLogin:false,
     username:null,
     email: null,
     password: null,
@@ -156,6 +179,8 @@ export default {
           .then((result)=>{
             this.username=result.user.displayName;
             this.loginStatus=true;
+            this.email=result.user.email;
+            this.password = result.user.uid;
           })
           .catch((error) => {
             // Handle Errors here.
@@ -184,6 +209,25 @@ export default {
             const credential = GithubAuthProvider.credentialFromError(error);
             // ...
           });
+    },
+    login(){
+      let config = {
+        "username":this.username,
+        "password":this.password,
+      };
+      this.axios.post("/api/account/login/",config)
+          .then(({data})=>console.log(data))
+          .catch((err)=>console.log(err));
+    },
+    register(){
+      let config = {
+        "email":this.email,
+        "username":this.username,
+        "password":this.password,
+      };
+      this.axios.post("/api/account/register/",config)
+          .then(({data})=>console.log(data))
+          .catch((err)=>console.log(err));
     }
 
   },
