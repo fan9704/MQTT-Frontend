@@ -81,10 +81,10 @@ define(['./workbox-6e567876'], (function (workbox) { 'use strict';
    * See https://goo.gl/S9QRab
    */
   workbox.precacheAndRoute([{
-    "url": "assets/index.dc51ae6b.css",
+    "url": "assets/index.1d9430bf.js",
     "revision": null
   }, {
-    "url": "assets/index.eed68fba.js",
+    "url": "assets/index.91ad3a8f.css",
     "revision": null
   }, {
     "url": "assets/webfontloader.cd097671.js",
@@ -94,7 +94,7 @@ define(['./workbox-6e567876'], (function (workbox) { 'use strict';
     "revision": null
   }, {
     "url": "index.html",
-    "revision": "85ff2959c58e32f54a9cf8968a35e6ae"
+    "revision": "e2b291cf7535f065fa73f0c3f2fc9a82"
   }, {
     "url": "pwa-192x192.png",
     "revision": "8fe479aa0a6f33759a0eb72b7f9d70d5"
