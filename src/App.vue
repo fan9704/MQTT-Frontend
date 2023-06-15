@@ -40,6 +40,7 @@
           <v-list-item to="/" prepend-icon="mdi-home" title="Home Page"></v-list-item>
           <v-list-item to="/login" prepend-icon="mdi-account" title="Login/Register"></v-list-item>
           <v-list-item to="/pet/dog" prepend-icon="mdi-dog" title="Pet Information"></v-list-item>
+          <v-list-item to="/machine/management" prepend-icon="mdi-home-automation" title="Machine Management"></v-list-item>
           <v-list-item to="/graph" prepend-icon="mdi-graph" title="Graph"></v-list-item>
           <v-list-item @click="console.log('Download App')" prepend-icon="mdi-download-box" title="Download App" id="download"></v-list-item>
         </v-list>
