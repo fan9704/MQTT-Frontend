@@ -4,6 +4,7 @@ import IndexView from "../views/Index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import LoginView from "../views/Login.vue";
 import PetListView from "../views/PetList.vue";
+import MachineManagement from "../views/MachineManagement.vue";
 
 const routes = [
     {
@@ -16,6 +17,11 @@ const routes = [
         name: "PetListView",
         component: PetListView,
         props: true,
+    },
+    {
+        path: "/machine/management",
+        name: "MachineManagementView",
+        component: MachineManagement,
     },
     {
         path: "/login",

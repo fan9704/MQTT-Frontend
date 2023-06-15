@@ -195,10 +195,10 @@ export default {
             console.log(res.data)
             this.formPetId=res.data.id;
             this.formPetName=res.data.name;
-            this.formPetKeeper=res.data.keeper;
+            this.formPetKeeper=res.data["keeper"]["username"];
             this.formPetBirthday = res.data.birthday;
             this.formPetContent = res.data.content;
-            this.formPetType=res.data.type;
+            this.formPetType=res.data["type"]["typename"];
           })
           .catch((err) => console.log(err));
     }

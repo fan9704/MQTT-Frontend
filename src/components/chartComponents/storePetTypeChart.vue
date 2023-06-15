@@ -53,6 +53,14 @@ export default {
 
     function updateChart() {
       const pieChartOption = {
+        title:{
+          text: "寵物店內寵物種類占比圖",
+          left: "left",
+          textStyle: {
+            color: "#333",
+            fontSize: 20,
+          },
+        },
         tooltip: {
           trigger: 'item'
         },
@@ -60,15 +68,18 @@ export default {
           top: '5%',
           left: 'center'
         },
+        color:[
+            '#f6d2b8',
+            '#fabf06',
+            '#ffac6f',
+            '#f3a065',
+        ],
         series: [
           {
             name: 'Access From',
             type: 'pie',
             radius: ['40%', '70%'],
             avoidLabelOverlap: false,
-            itemStyle: {
-              color: '#c23531',
-            },
             label: {
               show: false,
               position: 'center'
@@ -81,12 +92,12 @@ export default {
               }
             },
             labelLine: {
-              show: false
+              show: true
             },
             data: chartData.value
 
           }
-        ]
+        ],
       };
       myPieChart.setOption(pieChartOption);
     }
