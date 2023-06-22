@@ -1,17 +1,22 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue'
 import vuetify from '@vuetify/vite-plugin'
 import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path';
 
-export default defineConfig({
-  // base: process.env.NODE_ENV === 'production'
-  //     ? '/PetMonitoringSystem-Frontend/'
-  //     : '/',
-  build:{
-    chunkSizeWarningLimit:1500,
-  },
-  plugins: [
+
+export default ({ mode }) => {
+  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+
+
+  return defineConfig({
+    // base: process.env.NODE_ENV === 'production'
+    //     ? '/PetMonitoringSystem-Frontend/'
+    //     : '/',
+    build:{
+      chunkSizeWarningLimit:1500,
+    },
+    plugins: [
       vue(),
       vuetify({
         autoImport: true,
@@ -49,24 +54,27 @@ export default defineConfig({
           sourcemap: true
         }
       }),
-  ],
-  define: { 'process.env': {} },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      'vue$': 'vue/dist/vue.esm.js',
-      'static': path.resolve(__dirname, '../static'),
-      '/images':'src/assets/images',
-    },
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:8000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace('', '')
+    ],
+    define: { 'process.env': {} },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+        'vue$': 'vue/dist/vue.esm.js',
+        'static': path.resolve(__dirname, '../static'),
+        '/images':'src/assets/images',
       },
-    }
-  },
+    },
+    server: {
+      proxy: {
+        '/api': {
+          // target:  `http://${process.env.SERVER_IP}` || '127.0.0.1:8000',
+          target:  `http://140.125.207.230:8000`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace('', '')
+        },
+      }
+    },
 
-})
+  })
+}
+
