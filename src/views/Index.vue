@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import logo from '../assets/applogo.png'
+import logo from '/PetMonitoringSystem-Frontend/imgs/applogo.png'
 import PetTypeList from "../components/homeComponents/PetTypeList.vue";
 
 export default {
