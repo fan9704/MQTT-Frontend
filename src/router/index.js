@@ -5,7 +5,7 @@ import HelloWorld from "../components/HelloWorld.vue";
 import LoginView from "../views/Login.vue";
 import PetListView from "../views/PetList.vue";
 import MachineManagement from "../views/MachineManagement.vue";
-import ChatLayout from "../components/chatComponents/chatLayout.vue";
+// import ChatLayout from "../components/chatComponents/chatLayout.vue";
 
 const routes = [
     {
@@ -39,11 +39,11 @@ const routes = [
         name: "stompChat",
         component: StompChat,
     },
-    {
-        path:"/chat",
-        name:"chatLayout",
-        component:ChatLayout
-    }
+    // {
+    //     path:"/chat",
+    //     name:"chatLayout",
+    //     component:ChatLayout
+    // }
 ];
 
 const router = createRouter({
