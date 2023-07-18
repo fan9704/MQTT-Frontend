@@ -97,7 +97,7 @@ define(['./workbox-6e567876'], (function (workbox) { 'use strict';
     "revision": "884059b005a21e2bd3eb11ae140240d5"
   }, {
     "url": "index.html",
-    "revision": "684ff9b49970f8df290ff119929c9f68"
+    "revision": "8d09c98e4239bba9cec5384cb4f6f8f5"
   }, {
     "url": "pwa-192x192.png",
     "revision": "8fe479aa0a6f33759a0eb72b7f9d70d5"
