@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
-            :src="logo"
+            :src="'/PetMonitoringSystem-Frontend/imgs/applogo.png'"
             class="my-3"
             contain
             height="200"
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import logo from '../assets/applogo.png'
+// import logo from '/PetMonitoringSystem-Frontend/imgs/applogo.png'
 import PetTypeList from "../components/homeComponents/PetTypeList.vue";
 
 export default {
