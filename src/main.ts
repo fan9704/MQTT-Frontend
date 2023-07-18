@@ -25,6 +25,9 @@ const vuetify = createVuetify({
     components,
     directives,
 })
+// Firebase
+import {messaging} from './utils/firebaseCore';
+
 
 const app = createApp(App);
 app.use(vuetify);
@@ -33,4 +36,5 @@ app.use(VueAxios, axios);
 app.use(loadFonts);
 app.use(AOS.init());
 app.use(VueSweetalert2);
+app.config.globalProperties.$messaging = messaging
 app.mount('#app');

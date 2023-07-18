@@ -1,6 +1,8 @@
 import { getAuth, GithubAuthProvider,GoogleAuthProvider } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getMessaging } from "firebase/messaging";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1FevAEUfg7u_tmhjPKGLJfVFBiQaghCY",
@@ -16,8 +18,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const messaging = getMessaging(app)
 
 const githubProvider = new GithubAuthProvider();
 const  googleProvider = new GoogleAuthProvider();
 
-export { auth, githubProvider,googleProvider }
+
+export { auth,messaging, githubProvider,googleProvider }

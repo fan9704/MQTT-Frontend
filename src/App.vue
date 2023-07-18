@@ -55,7 +55,8 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import {onMounted, provide, reactive} from "vue";
+import {onMounted, provide, reactive, ref} from "vue";
+import { getToken,onMessage } from "firebase/messaging";
 
 export default {
   name: 'App',
@@ -64,6 +65,7 @@ export default {
     HelloWorld,
   },
   setup(){
+    const notification = ref(null);
     const states = reactive({
       deferredPrompt: null,
     });
@@ -110,5 +112,21 @@ export default {
       this.drawer = false
     },
   },
+  mounted () {
+    console.log('Firebase cloud messaging object', this.$messaging)
+    getToken(this.$messaging,{
+      vapidKey: "BIGbuGz1MOztzbd3qpesAdtm1DKfhNVatZAdTU_ncPLrQWISpzFbbTjQS5dkQkqkLah43ic5MhJHWK3K_Ix-h0I"
+    })
+        .then((token) => {
+          console.log('FCM Token:', token);
+        })
+        .catch((error) => {
+          console.error('FCM 訂閱失敗:', error);
+        });
+    onMessage(this.$messaging, (payload) => {
+      console.log("收到通知:", payload);
+      notification.value = payload;
+    });
+  }
 }
 </script>
