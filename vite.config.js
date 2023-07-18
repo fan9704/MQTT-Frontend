@@ -33,7 +33,7 @@ export default ({ mode }) => {
           name: "Pet Monitoring",
           short_name: "PMS",
           theme_color: "#ffffff",
-          start_url: "/",
+          // start_url: "/",
           display: "standalone",
           background_color: "#ffffff",
           icons: [
