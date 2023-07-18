@@ -24,10 +24,10 @@ export default ({ mode }) => {
       }),
       VitePWA({
         mode: "development",
-        base: "/",
+        // base: "/",
         // srcDir: "src",
         // filename: "sw.js",
-        includeAssets: ["/favicon.png"],
+        includeAssets: ["./favicon.png"],
         // strategies: "injectManifest",
         manifest: {
           name: "Pet Monitoring",
