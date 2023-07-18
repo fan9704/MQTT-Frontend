@@ -13,6 +13,7 @@ export default ({ mode }) => {
     // base: process.env.NODE_ENV === 'production'
     //     ? '/PetMonitoringSystem-Frontend/'
     //     : '/',
+    base: '/PetMonitoringSystem-Frontend/',
     build:{
       chunkSizeWarningLimit:1500,
     },

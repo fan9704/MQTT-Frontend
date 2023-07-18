@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "main": "main.js",
-  "description": "Pet Monotoring System Frontend",
+  "description": "Pet Monitoring System Frontend",
   "author": "FKT",
   "scripts": {
     "serve": "vite preview",
     "build": "vite build",
+    "build:production": "vite build && mv dist dist_netlify/PetMonitoringSystem-Frontend",
     "dev": "vite",
     "preview": "vite preview"
   },
