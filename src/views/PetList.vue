@@ -21,8 +21,8 @@
     <!--PetList-->
     <v-row class="justify-center" v-for="pet in petList" :key="pet.id" data-aos="fade-left">
       <v-col
-          cols="6"
-          xs="10" sm="10" md="6" lg="8" xl="8"
+          cols="12"
+          xs="12" sm="10" md="6" lg="8" xl="8"
       >
         <v-card class="mx-auto">
           <v-card-text>
