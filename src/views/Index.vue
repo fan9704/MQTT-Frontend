@@ -115,7 +115,7 @@ export default {
         href: 'https://github.com/fan9704/PetMonitoringSystem-Hardware',
       },
     ],
-    logo,
+    // logo,
     whatsNext: [
       {
         text: '註冊',
