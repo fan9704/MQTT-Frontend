@@ -14,6 +14,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { VueFire, VueFireAuth } from 'vuefire'
+import { firebaseApp } from './utils/firebaseCore'
 // @ts-ignore
 import { registerSW } from 'virtual:pwa-register';
 registerSW({
@@ -36,5 +38,11 @@ app.use(VueAxios, axios);
 app.use(loadFonts);
 app.use(AOS.init());
 app.use(VueSweetalert2);
+app.use(VueFire, {
+    firebaseApp,
+    modules: [
+        VueFireAuth(),
+    ],
+})
 app.config.globalProperties.$messaging = messaging
 app.mount('#app');

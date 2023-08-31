@@ -1,13 +1,13 @@
-import {createRouter, createWebHistory} from "vue-router";
-import StompChat from "../components/stompChat.vue";
-import IndexView from "../views/Index.vue";
-import HelloWorld from "../components/HelloWorld.vue";
-import LoginView from "../views/Login.vue";
-import PetListView from "../views/PetList.vue";
-import MachineManagement from "../views/MachineManagement.vue";
-// import ChatLayout from "../components/chatComponents/chatLayout.vue";
+import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router";
+import StompChat from '@/components/stompChat.vue';
+import IndexView from "@/views/Index.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
+import LoginView from "@/views/Login.vue";
+import PetListView from "@/views/PetList.vue";
+import MachineManagement from '@/views/MachineManagement.vue';
+import ChatLayout from '@/components/chatComponents/chatLayout.vue';
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         name: "IndexView",
@@ -39,15 +39,15 @@ const routes = [
         name: "stompChat",
         component: StompChat,
     },
-    // {
-    //     path:"/chat",
-    //     name:"chatLayout",
-    //     component:ChatLayout
-    // }
+    {
+        path:"/chat",
+        name:"chatLayout",
+        component:ChatLayout
+    }
 ];
 
 const router = createRouter({
-    history: createWebHistory('/PetMonitoringSystem-Frontend/'),
+    history: createWebHistory(),
     routes,
 });
 

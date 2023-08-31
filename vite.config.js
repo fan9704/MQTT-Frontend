@@ -13,7 +13,6 @@ export default ({ mode }) => {
     // base: process.env.NODE_ENV === 'production'
     //     ? '/PetMonitoringSystem-Frontend/'
     //     : '/',
-    base: '/PetMonitoringSystem-Frontend/',
     build:{
       chunkSizeWarningLimit:1500,
     },
@@ -70,6 +69,7 @@ export default ({ mode }) => {
         '/api': {
           // target:  `http://${process.env.SERVER_IP}` || '127.0.0.1:8000',
           target:  `http://140.125.207.230:8000`,
+          // target:  `http://127.0.0.1:8000`,
           changeOrigin: true,
           rewrite: (path) => path.replace('', '')
         },
